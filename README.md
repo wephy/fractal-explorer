@@ -57,4 +57,4 @@ To-do
 
 License
 -------
-py-fractal is licensed under the terms of the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
+fractal-explorer is licensed under the terms of the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
