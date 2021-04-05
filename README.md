@@ -1,3 +1,5 @@
+<img src="./screens/preview.png" alt="mandelbrot" width="200px"/>
+
 Interactive Fractal Explorer
 ==============================
 
