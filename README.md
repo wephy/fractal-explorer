@@ -18,10 +18,10 @@ Executing
 --------
 To run the program, execute `main()` within main.py
 
-All parameters are optional. The defaults are:
-`fractal='mandelbrot'`
-`iterations=1500`
-`image_size=1000`
+All parameters are optional. The defaults are:  
+`fractal='mandelbrot'`  
+`iterations=1500`  
+`image_size=1000`  
 `coords=(-2.5, 1.5, 2.0, 2.0)`
 
 Here is an example of executing with custom parameters:
