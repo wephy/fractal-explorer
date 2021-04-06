@@ -6,10 +6,9 @@ from matplotlib import colors as mc
 import palettable
 
 
-def render_image(
-    coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500, resolution=1000,
-    savename='fractal', fractal='mandelbrot'):
-    
+def render_image(coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500,
+                 resolution=1000, savename='fractal', fractal='mandelbrot'):
+
     min_x, max_x, min_y, max_y = coords
     if fractal != 'mandelbrot':
         min_y, max_y = -max_y, -min_y
@@ -30,13 +29,21 @@ def render_image(
     # Colormapping
     cmaps = []
     for _ in range(iterations // 512):
-        cmaps.append(palettable.matplotlib.Magma_20.mpl_colormap(np.linspace(0., 1, 256)))
-        cmaps.append(palettable.matplotlib.Magma_20_r.mpl_colormap(np.linspace(0., 1, 256)))
+        cmaps.append(
+            palettable.matplotlib.Magma_20.mpl_colormap(
+                np.linspace(0, 1, 256)))
+        cmaps.append(
+            palettable.matplotlib.Magma_20_r.mpl_colormap(
+                np.linspace(0, 1, 256)))
     cmaps = np.vstack(cmaps)
     cmap = mc.LinearSegmentedColormap.from_list('cmap', cmaps)
-    newcmap = cmap.from_list('newcmap',list(map(cmap,range(255))), N=iterations-1)
-    newcmap = cmap.from_list('newcmap',list(map(cmap,range(255)))+[(0,0,0,1)], N=iterations)
-    
+    newcmap = cmap.from_list(
+        'newcmap', list(map(cmap, range(255))), N=iterations-1
+        )
+    newcmap = cmap.from_list(
+        'newcmap', list(map(cmap, range(255)))+[(0, 0, 0, 1)], N=iterations
+        )
+
     """" ========= Example Colormaps ========= """
     # palettable.cubehelix.red_16.mpl_colormap
     # palettable.cubehelix.cubehelix1_16.mpl_colormap
@@ -48,8 +55,7 @@ def render_image(
     image = cuda_module.get_image(
         coords=coords,
         max_iters=iterations,
-        resolution=resolution
-    )
+        resolution=resolution)
 
     # Apply colormap
     colored_image = newcmap(image)
@@ -65,10 +71,15 @@ def render_image(
         os.makedirs(directory)
 
     # Save image
-    Image.fromarray((colored_image[:, :, :3] * 255).astype(np.uint8)).save(directory + "/" + filename)
+    Image.fromarray((colored_image[:, :, :3] * 255).astype(np.uint8)).save(
+        directory + "/" + filename)
 
 
 if __name__ == '__main__':
     """" ========= Example Renders ========= """
-    # render_image(fractal='mandelbrot', save_name='./screens/mandelbrot.jpeg')
-    # render_image(fractal='burningship', savename='./test', coords=(-1.8, -1.7, -0.01, 0.09))
+    # render_image(fractal='mandelbrot',
+    #              save_name='./screens/mandelbrot.jpeg')
+
+    # render_image(fractal='burningship',
+    #              savename='./test',
+    #              coords=(-1.8, -1.7, -0.01, 0.09))
