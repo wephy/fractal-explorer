@@ -10,8 +10,7 @@ def render_image(coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500,
                  resolution=1000, savename='fractal', fractal='mandelbrot'):
 
     min_x, max_x, min_y, max_y = coords
-    if fractal != 'mandelbrot':
-        min_y, max_y = -max_y, -min_y
+    min_y, max_y = -max_y, -min_y
     coords = min_x, max_x, min_y, max_y
 
     fractals = {'mandelbrot', 'burningship'}

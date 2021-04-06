@@ -2,7 +2,7 @@ import numpy as np
 from pylab import imshow, show
 from timeit import default_timer as timer
 from numba import cuda
-from numba import uint32, f8, uint8, uint16
+from numba import uint32, f8, uint16
 
 
 @cuda.jit(uint32(f8, f8, uint32), device=True)
@@ -52,7 +52,6 @@ def get_image(coords=(-2.0, 2.0, -2.0, 2.0), max_iters=1500, resolution=1000):
     mandel_kernel[griddim, blockdim](
         min_x, max_x, min_y, max_y, d_image, max_iters)
     d_image.to_host()
-    gimage = np.flipud(gimage)
     return gimage
 
 
