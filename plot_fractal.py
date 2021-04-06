@@ -16,7 +16,7 @@ def render_image(coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500,
     fractals = {'mandelbrot', 'burningship'}
 
     if iterations < 512:
-        raise ValueError("Minimum 1500 iterations")
+        raise ValueError("Minimum 512 iterations")
 
     # Image data set
     if fractal in fractals:
@@ -37,11 +37,9 @@ def render_image(coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500,
     cmaps = np.vstack(cmaps)
     cmap = mc.LinearSegmentedColormap.from_list('cmap', cmaps)
     newcmap = cmap.from_list(
-        'newcmap', list(map(cmap, range(255))), N=iterations-1
-        )
+        'newcmap', list(map(cmap, range(255))), N=iterations-1)
     newcmap = cmap.from_list(
-        'newcmap', list(map(cmap, range(255)))+[(0, 0, 0, 1)], N=iterations
-        )
+        'newcmap', list(map(cmap, range(255)))+[(0, 0, 0, 1)], N=iterations)
 
     """" ========= Example Colormaps ========= """
     # palettable.cubehelix.red_16.mpl_colormap
