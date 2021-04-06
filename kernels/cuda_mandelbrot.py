@@ -56,6 +56,7 @@ def get_image(coords=(-2.0, 2.0, -2.0, 2.0), max_iters=1500, resolution=1000):
 
 
 if __name__=='__main__':
+    """ ========= Check execution time ========= """
     start = timer()
     image = get_image()
     dt = timer() - start
