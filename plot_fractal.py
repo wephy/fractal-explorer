@@ -74,9 +74,14 @@ def render_image(coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500,
 
 if __name__ == '__main__':
     """" ========= Example Renders ========= """
-    # render_image(fractal='mandelbrot',
-    #              save_name='./screens/mandelbrot.jpeg')
 
+    # render_image(fractal='mandelbrot',
+    #              savename='./screens/mandelbrot.png',
+    #              coords=(-0.74, -0.67, 0.21, 0.28),
+    #              resolution=4*1920)
+
+    
     # render_image(fractal='burningship',
-    #              savename='./test',
-    #              coords=(-1.8, -1.7, -0.01, 0.09))
+    #              savename='./screens/ship.png',
+    #              coords=(-2.444, 2.0, -0.5, 2.0),
+    #              resolution=20000)

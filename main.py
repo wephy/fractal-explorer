@@ -4,8 +4,8 @@ from pygame.locals import *
 from plot_fractal import render_image
 
 
-def main(fractal='mandelbrot', iterations=1500, image_size=1000,
-         coords=(-2.5, 1.5, -2.0, 2.0), size=4):
+def main(fractal='mandelbrot', iterations=1500, resolution=1000,
+         coords=(-2.5, 1.5, -2.0, 2.0)):
 
     # Create coord variables
     min_x, max_x, min_y, max_y = coords
@@ -13,13 +13,13 @@ def main(fractal='mandelbrot', iterations=1500, image_size=1000,
 
     # Render first image (Executed first as a check)
     render_image(coords=coords, iterations=iterations,
-                 resolution=image_size, fractal=fractal)
+                 resolution=resolution, fractal=fractal)
 
     # Pygame setup
     pygame.init()
     clock = pygame.time.Clock()
     pygame.display.set_caption('Fractal Plot')
-    screen = pygame.display.set_mode((image_size, image_size))
+    screen = pygame.display.set_mode((resolution, resolution))
     pygame.display.set_caption(f'Fractal plot: {fractal}')
 
     # Load and show first image
@@ -35,8 +35,8 @@ def main(fractal='mandelbrot', iterations=1500, image_size=1000,
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos_x, pos_y = pygame.mouse.get_pos()
-                pos_x = (pos_x*size/image_size)+min_x
-                pos_y = ((image_size-pos_y)*size/image_size)+min_y
+                pos_x = (pos_x*size/resolution)+min_x
+                pos_y = ((resolution-pos_y)*size/resolution)+min_y
 
                 # Left click (zoom in)
                 if event.button == 1:
@@ -54,12 +54,12 @@ def main(fractal='mandelbrot', iterations=1500, image_size=1000,
                 # Render and show zoomed image
                 render_image(coords=(min_x, max_x, min_y, max_y),
                              iterations=iterations,
-                             resolution=image_size,
+                             resolution=resolution,
                              fractal=fractal
                              )
                 originalImg = pygame.image.load("./fractal.png")
                 img = pygame.transform.scale(originalImg,
-                                             (image_size, image_size))
+                                             (resolution, resolution))
                 screen.blit(img, (0, 0))
 
         pygame.display.update()
@@ -73,9 +73,10 @@ if __name__ == '__main__':
     - burningship
     """
 
-    main(
-        fractal='burningship',
-        iterations=1500,
-        image_size=1000,
-        coords=(-1.8, -1.7, -0.01, 0.09)
-         )
+    # main()
+
+    # main(fractal='burningship')
+
+    # main(resolution=360)
+
+    # main(fractal='burningship', coords=(-1.8, -1.7, -0.01, 0.09), iterations=3000)
