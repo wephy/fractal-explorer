@@ -18,7 +18,7 @@ Executing
 --------
 The program can either be run by command-line execution or within an IDE.
 
-##### Command-line execution:
+#### Command-line execution:
 run `py fractal.py`
 
 optional arguments:
@@ -36,7 +36,7 @@ resolution of window
 Example:
 `py fractal.py -r 1280 -f burningship -c -1.8 -1.7 -0.01 0.09`
 
-##### Within an IDE:
+#### Within an IDE:
 run `main()` within `fractal.py`
 
 All parameters are optional. The defaults are:  
