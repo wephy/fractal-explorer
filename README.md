@@ -24,13 +24,13 @@ run `py fractal.py`
 optional arguments:
 *  -h, --help            
 show help message and exit
-*  -f    
+*  -f  
 fractal set to generate from {'burningship', 'mandelbrot'}
-*  -i        
+*  -i  
 maximum iterations
-*  -c
+*  -c  
 starting coordinates xmin, xmax, ymin, ymax separated by spaces. e.g. `py fractal.py -c -2.5 1.5 -2.0 2.0`
-*  -r
+*  -r  
 resolution of window
 
 Example:
