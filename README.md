@@ -49,7 +49,7 @@ Here is an example of executing with custom parameters:
 ```python
     main(fractal='burningship',
          iterations=2500,
-         image_size=720,
+         resolution=720,
          coords=(-1.8, -1.7, -0.01, 0.09))
 ```
 
