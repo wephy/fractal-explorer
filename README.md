@@ -1,9 +1,9 @@
-<img src="./screens/preview.png" alt="mandelbrot" width="200px"/>
+<img src="./screens/mini.png" alt="mandelbrot" width="360px"/>
 
 Interactive Fractal Explorer
 ==============================
 
-![Version 0.2.1](https://img.shields.io/badge/version-0.2.1-blue)
+![Version 0.2.1](https://img.shields.io/badge/version-1.0.0-blue)
 
 Features
 --------
@@ -16,12 +16,33 @@ Features
 
 Executing
 --------
-To run the program, execute `main()` within main.py
+The program can either be run by command-line execution or within an IDE.
+
+###### Command-line execution:
+run `py fractal.py`
+
+optional arguments:
+*  -h, --help            
+show help message and exit
+*  -f    
+fractal set to generate from {'burningship', 'mandelbrot'}
+*  -i        
+maximum iterations
+*  -c
+starting coordinates xmin, xmax, ymin, ymax separated by spaces. e.g. `py fractal.py -c -2.5 1.5 -2.0 2.0`
+*  -r
+resolution of window
+
+Example:
+`py fractal.py -r 1280 -f burningship -c -1.8 -1.7 -0.01 0.09`
+
+###### Within an IDE:
+run `main()` within `fractal.py`
 
 All parameters are optional. The defaults are:  
 `fractal='mandelbrot'`  
 `iterations=1500`  
-`image_size=1000`  
+`resolution=1000`  
 `coords=(-2.5, 1.5, 2.0, 2.0)`
 
 Here is an example of executing with custom parameters:
@@ -31,7 +52,6 @@ Here is an example of executing with custom parameters:
          image_size=720,
          coords=(-1.8, -1.7, -0.01, 0.09))
 ```
-> NOTE: All testing so far has been through IPython within VSCode
 
 Controls
 --------
@@ -45,10 +65,10 @@ Requirements
 Python 3.8 or later
 
 For module requirements see [requirements.txt](https://github.com/wephy/py-fractals/blob/main/requirements.txt)
+> NOTE: Testing has only been with Python 3.8+
 
 To-do
 ------
-* Implement command-line execution
 * Add more fractal sets
 * Add smooth zoom animation
 * Add regular jit and/or cuda emulation fallback for cuda incompatible systems
@@ -57,4 +77,4 @@ To-do
 
 License
 -------
-fractal-explorer is licensed under the terms of the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
+Fractal Explorer is licensed under the terms of the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)

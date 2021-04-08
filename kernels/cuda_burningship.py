@@ -36,7 +36,7 @@ def burningship_kernel(min_x, max_x, min_y, max_y, image, max_iters):
             image[y, x] = burningship(real, imag, max_iters)
 
 
-def get_image(coords=(-2.0, 2.0, -2.0, 2.0), max_iters=1500, resolution=1000):
+def get_image(coords, max_iters, resolution):
     min_x, max_x, min_y, max_y = coords
     x_diff = max_x - min_x
     y_diff = max_y - min_y
@@ -53,13 +53,12 @@ def get_image(coords=(-2.0, 2.0, -2.0, 2.0), max_iters=1500, resolution=1000):
     d_image = cuda.to_device(gimage)
     burningship_kernel[griddim, blockdim](
         min_x, max_x, min_y, max_y, d_image, max_iters)
-    d_image.to_host()
-    return gimage
+    h_image = d_image.copy_to_host()
+    return h_image
 
 
 if __name__ == '__main__':
-    # Check execution time
-    # of image kernel
+    # Check execution time of image kernel
     start = timer()
     image = get_image()
     dt = timer() - start

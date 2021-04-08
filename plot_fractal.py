@@ -2,44 +2,37 @@ import numpy as np
 import importlib
 import os
 from PIL import Image
+import matplotlib as mpl
 from matplotlib import colors as mc
 import palettable
 
 
-def render_image(coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500,
-                 resolution=1000, savename='fractal', fractal='mandelbrot'):
+fractal_sets = {
+    'mandelbrot',
+    'burningship'
+}
+
+
+def render_image(
+    coords=(-2.5, 1.5, -2.0, 2.0),
+    iterations=1500,
+    resolution=720,
+    savename='./plot/fractal.png',
+    fractal='mandelbrot'
+                ):
 
     min_x, max_x, min_y, max_y = coords
     min_y, max_y = -max_y, -min_y
     coords = min_x, max_x, min_y, max_y
 
-    fractals = {'mandelbrot', 'burningship'}
-
-    if iterations < 512:
-        raise ValueError("Minimum 512 iterations")
-
     # Image data set
-    if fractal in fractals:
+    if fractal in fractal_sets:
         module_name = ('kernels.' + 'cuda_' + fractal)
         cuda_module = importlib.import_module(module_name)
     else:
-        raise KeyError(f"Invalid fractal name. Select from: {fractals}")
+        raise KeyError(f"Invalid fractal name. Select from: {fractal_sets}")
 
     # Colormapping
-    cmaps = []
-    for _ in range(iterations // 512):
-        cmaps.append(
-            palettable.matplotlib.Magma_20.mpl_colormap(
-                np.linspace(0, 1, 256)))
-        cmaps.append(
-            palettable.matplotlib.Magma_20_r.mpl_colormap(
-                np.linspace(0, 1, 256)))
-    cmaps = np.vstack(cmaps)
-    cmap = mc.LinearSegmentedColormap.from_list('cmap', cmaps)
-    newcmap = cmap.from_list(
-        'newcmap', list(map(cmap, range(255))), N=iterations-1)
-    newcmap = cmap.from_list(
-        'newcmap', list(map(cmap, range(255)))+[(0, 0, 0, 1)], N=iterations)
 
     """" ========= Example Colormaps ========= """
     # palettable.cubehelix.red_16.mpl_colormap
@@ -47,6 +40,38 @@ def render_image(coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500,
     # palettable.cartocolors.sequential.agSunset_7.mpl_colormap
     # palettable.mycarta.LinearL_5.mpl_colormap
     """" ===================================== """
+
+    COLORMAP = palettable.matplotlib.Magma_20
+    COLORMAP_r = palettable.matplotlib.Magma_20_r
+
+    # Create colormap
+    if iterations > 512:
+        cmaps = []
+        # Contrinually stack 2 colormaps of length 256 untl desired size
+        for _ in range(iterations // 512):
+            cmaps.append(
+                COLORMAP.mpl_colormap(
+                    np.linspace(0, 1, 256)))
+            # Reversed colormaps used inbetween to make transition smooth
+            cmaps.append(
+                COLORMAP_r.mpl_colormap(
+                    np.linspace(0, 1, 256)))
+        cmaps = np.vstack(cmaps)
+        cmap = mc.LinearSegmentedColormap.from_list('cmap', cmaps)
+        newcmap = cmap.from_list(
+            'newcmap', list(map(cmap, range(256))), N=iterations-1)
+        newcmap = cmap.from_list(
+            # Add [0, 0, 0, 1] as to pixels inside the fractal set black
+            'newcmap', list(map(cmap, range(256)))+[(0, 0, 0, 1)],
+            N=iterations)
+    # If iterations is below 512 use single colormap
+    else:
+        cmaps = COLORMAP.mpl_colormap(np.linspace(0, 1, iterations-1))
+        cmap = mc.LinearSegmentedColormap.from_list('cmap', cmaps)
+        newcmap = cmap.from_list(
+            # Add [0, 0, 0, 1] as to pixels inside the fractal set black
+            'newcmap', list(map(cmap, range(256)))+[(0, 0, 0, 1)],
+            N=iterations)
 
     # Get image from cuda_mandelbrot
     image = cuda_module.get_image(
@@ -62,8 +87,12 @@ def render_image(coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500,
     if directory == '':
         directory += './'
     filename = savename.split("/")[-1]
+
+    # Default to .png if extension not given
     if '.' not in filename:
         filename += '.png'
+
+    # Create directory if it doesn't exist
     if not os.path.exists(directory):
         os.makedirs(directory)
 
@@ -75,13 +104,11 @@ def render_image(coords=(-2.5, 1.5, -2.0, 2.0), iterations=1500,
 if __name__ == '__main__':
     """" ========= Example Renders ========= """
 
-    # render_image(fractal='mandelbrot',
-    #              savename='./screens/mandelbrot.png',
-    #              coords=(-0.74, -0.67, 0.21, 0.28),
-    #              resolution=4*1920)
-
-    
     # render_image(fractal='burningship',
     #              savename='./screens/ship.png',
-    #              coords=(-2.444, 2.0, -0.5, 2.0),
-    #              resolution=20000)
+    #              coords=(-1.8,-1.7,-0.01,0.09),
+    #              resolution=2000)
+
+    # render_image(iterations=12,
+    #              savename='./screens/simple_mandel.jpeg',
+    #              resolution=3000)
