@@ -2,14 +2,20 @@ import numpy as np
 import importlib
 import os
 from PIL import Image
-import matplotlib as mpl
-from matplotlib import colors as mc
+from matplotlib.colors import LinearSegmentedColormap
 import palettable
 
 
 fractal_sets = {
     'mandelbrot',
-    'burningship'
+    'burningship',
+    'tricorn',
+    'americo',
+    'feather',
+    # Experimental:
+    'cosine',
+    'sine',
+    'exp',
 }
 
 
@@ -35,14 +41,17 @@ def render_image(
     # Colormapping
 
     """" ========= Example Colormaps ========= """
-    # palettable.cubehelix.red_16.mpl_colormap
-    # palettable.cubehelix.cubehelix1_16.mpl_colormap
-    # palettable.cartocolors.sequential.agSunset_7.mpl_colormap
-    # palettable.mycarta.LinearL_5.mpl_colormap
+    # palettable.cubehelix.red_16
+    # palettable.cubehelix.cubehelix1_16
+    # palettable.cubehelix.cubehelix2_16
+    # palettable.cartocolors.sequential.agSunset_7
+    # palettable.mycarta.LinearL_5
+    # palettable.matplotlib.Magma_20
+    # palettable.cubehelix.Cubehelix.make(start=0.3, rotation=-0.5, n=256)
+    # palettable.cmocean.sequential.Matter_20_r
     """" ===================================== """
-
-    COLORMAP = palettable.matplotlib.Magma_20
-    COLORMAP_r = palettable.matplotlib.Magma_20_r
+    COLORMAP = palettable.cmocean.sequential.Thermal_4
+    COLORMAP_r = palettable.cmocean.sequential.Thermal_4_r
 
     # Create colormap
     if iterations > 512:
@@ -57,7 +66,7 @@ def render_image(
                 COLORMAP_r.mpl_colormap(
                     np.linspace(0, 1, 256)))
         cmaps = np.vstack(cmaps)
-        cmap = mc.LinearSegmentedColormap.from_list('cmap', cmaps)
+        cmap = LinearSegmentedColormap.from_list('cmap', cmaps)
         newcmap = cmap.from_list(
             'newcmap', list(map(cmap, range(256))), N=iterations-1)
         newcmap = cmap.from_list(
@@ -67,7 +76,7 @@ def render_image(
     # If iterations is below 512 use single colormap
     else:
         cmaps = COLORMAP.mpl_colormap(np.linspace(0, 1, iterations-1))
-        cmap = mc.LinearSegmentedColormap.from_list('cmap', cmaps)
+        cmap = LinearSegmentedColormap.from_list('cmap', cmaps)
         newcmap = cmap.from_list(
             # Add [0, 0, 0, 1] as to pixels inside the fractal set black
             'newcmap', list(map(cmap, range(256)))+[(0, 0, 0, 1)],

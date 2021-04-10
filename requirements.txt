@@ -3,8 +3,8 @@ numba==0.51.2
 importlib==1.0.4
 matplotlib == 3.4.1
 Pillow==8.2.0
-palettable==3.3.0
 pygame==2.0.1
 argparse==1.4.0
+palettable==3.3.0
 # OpenGL
 # colorcet
