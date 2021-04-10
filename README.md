@@ -3,7 +3,7 @@
 Interactive Fractal Explorer
 ==============================
 
-![Version 0.2.1](https://img.shields.io/badge/version-1.0.0-blue)
+![Version 1.1.0](https://img.shields.io/badge/version-1.0.0-blue)
 
 Features
 --------
