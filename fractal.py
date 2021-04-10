@@ -1,10 +1,9 @@
 import pygame
 from pygame.locals import *
-
 import argparse
 import sys
-
 import plot_fractal
+
 
 parser = argparse.ArgumentParser(description='Fractal Explorer')
 parser.add_argument(

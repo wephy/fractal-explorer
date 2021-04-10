@@ -11,9 +11,11 @@ fractal_sets = {
     'burningship',
     'tricorn',
     'americo',
-    # 'cosine',
-    # 'sine',           } these three are not very good
-    # 'exponential'
+    'feather',
+    # Experimental:
+    'cosine',
+    'sine',
+    'exp',
 }
 
 
@@ -41,14 +43,15 @@ def render_image(
     """" ========= Example Colormaps ========= """
     # palettable.cubehelix.red_16
     # palettable.cubehelix.cubehelix1_16
+    # palettable.cubehelix.cubehelix2_16
     # palettable.cartocolors.sequential.agSunset_7
     # palettable.mycarta.LinearL_5
     # palettable.matplotlib.Magma_20
     # palettable.cubehelix.Cubehelix.make(start=0.3, rotation=-0.5, n=256)
+    # palettable.cmocean.sequential.Matter_20_r
     """" ===================================== """
-
-    COLORMAP = palettable.cubehelix.cubehelix2_16
-    COLORMAP_r = palettable.cubehelix.cubehelix2_16_r
+    COLORMAP = palettable.cmocean.sequential.Thermal_4
+    COLORMAP_r = palettable.cmocean.sequential.Thermal_4_r
 
     # Create colormap
     if iterations > 512:
