@@ -1,7 +1,7 @@
 <img src="./screens/mini.png" alt="mandelbrot" width="360px"/>
 
-Interactive Fractal Explorer
-==============================
+# Interactive Fractal Explorer [fractal-explorer]
+**An interactive fractal explorer built with pygame, numpy and numba - utilising cuda processing and customisable color-mapping.**
 
 ![Version 1.1.0](https://img.shields.io/badge/version-1.1.0-blue)
 
