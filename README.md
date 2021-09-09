@@ -74,7 +74,3 @@ To-do
 * Add regular jit and/or cuda emulation fallback for cuda incompatible systems
 * Add menu screen (for entering fractal, resolution, colormap, max iterations, etc.) => turn into executable
 * Add additional controls (e.g. return to original position)
-
-License
--------
-Fractal Explorer is licensed under the terms of the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
