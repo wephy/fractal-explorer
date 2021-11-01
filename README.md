@@ -16,7 +16,7 @@ Features
 
 Executing
 --------
-The program can either be run by command-line execution or within an IDE.
+The program can either be run by command-line execution or within an IDE. I recommend using this within an anaconda environment with the `cudatoolkit` package (version 10.2.89) installed for the most seamless use.
 
 #### Command-line execution:
 run `py fractal.py`
